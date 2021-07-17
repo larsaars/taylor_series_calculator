@@ -4,19 +4,12 @@ import numpy as np
 
 from config import *
 
-base_taylor_expr = Integer(0)
+base_taylor_expr = Float(lambdify(x, BASE_EXPR)(DEVELOPMENT_POINT))
 current_function = BASE_EXPR
 
-for k in range(GRADE + 1):
+for k in range(1, GRADE + 1):
     derivative_k = Derivative(current_function, x).doit()
-    derivative_k_solved = solve(Eq(derivative_k, DEVELOPMENT_POINT), x)
-    derivative_k_numeric_value = 0
-
-    if len(derivative_k_solved) == 0:
-        print(f'stopped at grade {k}')
-        break
-    else:
-        derivative_k_solved = derivative_k_solved[0]
+    derivative_k_solved = lambdify(x, derivative_k)(DEVELOPMENT_POINT)
 
     base_taylor_expr += (derivative_k_solved / m.factorial(k)) * ((x - DEVELOPMENT_POINT) ** k)
 
