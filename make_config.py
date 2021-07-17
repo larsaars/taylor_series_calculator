@@ -9,4 +9,4 @@ DEVELOPMENT_POINT = float(input('development point [0]: ') or '0')
 GRADE = int(input('grade [4]: ') or '4')
 PLOT_RANGE = int(input('plot range [3]: ') or '3')
 
-calculate_and_plot()
+calculate_and_plot(base_expr=BASE_EXPR, development_point=DEVELOPMENT_POINT, grade=GRADE, plot_range=PLOT_RANGE)
