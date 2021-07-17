@@ -4,6 +4,11 @@ import numpy as np
 
 from config import *
 
+# calc ranges for plotting
+PLOT_MIN_X, PLOT_MAX_X = DEVELOPMENT_POINT - PLOT_RANGE, DEVELOPMENT_POINT + PLOT_RANGE
+PLOT_POINTS = 1000
+
+# calculate the nth taylor series for the function (BASE_EXPR)
 base_taylor_expr = Float(lambdify(x, BASE_EXPR)(DEVELOPMENT_POINT))
 current_function = BASE_EXPR
 
@@ -20,14 +25,27 @@ print('f(x) = ' + str(BASE_EXPR))
 print(f'T({GRADE}, {DEVELOPMENT_POINT})(x) = ' + str(base_taylor_expr))
 
 # and plot both expressions (base_expr and base_taylor_expr)
+# by first making functions out of the two expressions,
+# then calculating in an linear space N points and plotting those points with matplotlib
 lam_base_expr = lambdify(x, BASE_EXPR, modules=['numpy'])
 lam_taylor_expr = lambdify(x, base_taylor_expr, modules=['numpy'])
 
 x_vals = np.linspace(PLOT_MIN_X, PLOT_MAX_X, PLOT_POINTS)
 y_vals_base_expr, y_vals_taylor_expr = lam_base_expr(x_vals), lam_taylor_expr(x_vals)
 
-plt.plot(x_vals, y_vals_base_expr, label='f(x)')
-plt.plot(x_vals, y_vals_taylor_expr, label=f'T({GRADE}, {DEVELOPMENT_POINT})(x)')
+# create subplot
+fig, ax = plt.subplots()
+# plot graphs
+ax.plot(x_vals, y_vals_base_expr, label='f(x)')
+ax.plot(x_vals, y_vals_taylor_expr, label=f'T({GRADE}, {DEVELOPMENT_POINT})(x)')
+# styling (x and y axis, etc.)
+ax.grid(True, which='both')
+
+if PLOT_MIN_X < 0 < PLOT_MAX_X:
+    ax.axvline(x=0, color='k')
+if DRAW_X_AXIS:
+    ax.axhline(y=0, color='k')
+# set labels, enable legend and show
 plt.xlabel('x')
 plt.ylabel('y')
 plt.legend()

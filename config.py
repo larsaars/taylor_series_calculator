@@ -8,5 +8,5 @@ GRADE = 4
 BASE_EXPR = cos(x)
 
 # plot settings
-PLOT_MIN_X, PLOT_MAX_X = 5, 12
-PLOT_POINTS = 1000
+PLOT_RANGE = 4
+DRAW_X_AXIS = True
