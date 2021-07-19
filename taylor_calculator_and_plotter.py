@@ -49,7 +49,7 @@ def calculate_and_plot(development_point: float = 8,
     # create subplot
     fig, ax = plt.subplots()
     # plot graphs
-    ax.plot(x_vals, y_vals_base_expr, label='f(x)')
+    ax.plot(x_vals, y_vals_base_expr, label=str(base_expr))
     ax.plot(x_vals, y_vals_taylor_expr, label=f'T({grade}, {development_point})(x)')
     # styling (x and y axis, etc.)
     ax.grid(True, which='both')
